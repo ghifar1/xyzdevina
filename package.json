@@ -15,12 +15,18 @@
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2"
     },
     "dependencies": {
         "@mantine/core": "^4.2.12",
+        "@mantine/dropzone": "^4.2.12",
         "@mantine/hooks": "^4.2.12",
-        "react-router-dom": "^6.3.0"
+        "chart.js": "^3.8.0",
+        "date-fns": "^2.29.1",
+        "react-chartjs-2": "^4.3.1",
+        "react-cookie": "^4.1.1",
+        "react-router-dom": "^6.3.0",
+        "tabler-icons-react": "^1.53.0"
     }
 }
