@@ -22,6 +22,7 @@
         "@mantine/core": "^4.2.12",
         "@mantine/dropzone": "^4.2.12",
         "@mantine/hooks": "^4.2.12",
+        "@mantine/notifications": "^4.2.12",
         "chart.js": "^3.8.0",
         "date-fns": "^2.29.1",
         "react-chartjs-2": "^4.3.1",

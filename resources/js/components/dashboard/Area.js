@@ -98,6 +98,20 @@ const SegmentGrowth = () => {
                 text: 'Pertumbuhan Month to Month Segmen',
             },
         },
+        scales: {
+            y: {
+                title: {
+                    display: true,
+                    text: 'Transaction Volume (USD)'
+                },
+                ticks: {
+                    // Include a dollar sign in the ticks
+                    callback: function (value, index, values) {
+                        return abbreviateNumber(value)
+                    }
+                }
+            }
+        }
 
     };
 

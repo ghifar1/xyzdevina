@@ -3,8 +3,9 @@ import { Dropzone, MS_EXCEL_MIME_TYPE } from "@mantine/dropzone"
 import axios from "axios";
 import { getYear } from "date-fns";
 import { useEffect, useState } from "react";
-import { Upload, X, Photo, File } from "tabler-icons-react";
+import { Upload, X, Photo, File, Check } from "tabler-icons-react";
 import baseUrl from "../../constant/baseUrl";
+import { showNotification } from '@mantine/notifications';
 
 function getIconColor(status, theme) {
     return status.accepted
@@ -50,8 +51,10 @@ const ManageData = () => {
         tahun: getYear(new Date())
     })
     const [history, setHistory] = useState([])
+    const [loading, setLoading] = useState(false)
 
     const onSubmit = () => {
+        setLoading(true)
         const fData = new FormData();
         fData.append('excel', form.file)
         fData.append('tahun', form.tahun)
@@ -66,8 +69,23 @@ const ManageData = () => {
         axios.post(baseUrl + '/upload', fData, config)
             .then((res) => {
                 console.log(res.data)
+                setLoading(false)
+                showNotification({
+                    title: 'Upload Berhasil',
+                    icon: <Check />,
+                    color: 'green',
+                    autoClose: 5000,
+                })
             }).catch((err) => {
                 console.log(err.response)
+                setLoading(false)
+                showNotification({
+                    title: 'Upload gagal',
+                    message: 'Invalid file',
+                    icon: <X />,
+                    color: 'red',
+                    autoClose: 5000,
+                })
             })
 
     }
@@ -116,7 +134,7 @@ const ManageData = () => {
                         value={form.tahun}
                         onChange={(val) => setForm({ ...form, tahun: val })}
                     />
-                    <Button disabled={files.length == 0} onClick={onSubmit} > Upload  </Button>
+                    <Button disabled={files.length == 0} onClick={onSubmit} loading={loading} > Upload  </Button>
                 </Stack>
             </div>
             <Divider my={10} />

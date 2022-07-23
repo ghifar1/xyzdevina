@@ -75,6 +75,10 @@ const TopTenClientVolume = () => {
         },
         scales: {
             y: {
+                title: {
+                    display: true,
+                    text: 'USD Volume end'
+                },
                 ticks: {
                     // Include a dollar sign in the ticks
                     callback: function (value, index, values) {
@@ -144,6 +148,10 @@ const TopTenClientProfit = () => {
         },
         scales: {
             y: {
+                title: {
+                    display: true,
+                    text: 'Profit'
+                },
                 ticks: {
                     // Include a dollar sign in the ticks
                     callback: function (value, index, values) {
@@ -214,6 +222,10 @@ const Profit = () => {
         },
         scales: {
             y: {
+                title: {
+                    display: true,
+                    text: 'IDR Profit end'
+                },
                 ticks: {
                     // Include a dollar sign in the ticks
                     callback: function (value, index, values) {
@@ -282,6 +294,10 @@ const Volume = () => {
         },
         scales: {
             y: {
+                title: {
+                    display: true,
+                    text: 'USD Volume end'
+                },
                 ticks: {
                     // Include a dollar sign in the ticks
                     callback: function (value, index, values) {
