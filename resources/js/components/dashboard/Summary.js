@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import axios from "axios"
 import baseUrl from "../../constant/baseUrl"
 
@@ -14,6 +14,7 @@ import {
 import { Bar } from 'react-chartjs-2';
 import { Grid, LoadingOverlay } from "@mantine/core";
 import abbreviateNumber from "../../constant/shortHand";
+import tahunGraphContext from "../../context/tahunGraphContext";
 
 ChartJS.register(
     CategoryScale,
@@ -29,10 +30,11 @@ const TopTenClientVolume = () => {
     const [labels, setLabels] = useState([])
     const [value, setValue] = useState([])
     const [loading, setLoading] = useState(false)
+    const { tahun } = useContext(tahunGraphContext)
 
     useEffect(() => {
         setLoading(true)
-        axios.get(baseUrl + "/summary/topTenClientVolume")
+        axios.get(baseUrl + "/summary/topTenClientVolume?tahun=" + tahun)
             .then((res) => {
                 let label_tmp = []
                 let value_tmp = []
@@ -47,7 +49,7 @@ const TopTenClientVolume = () => {
                 setLoading(false)
                 console.log(err.response)
             })
-    }, [])
+    }, [tahun])
 
 
 
@@ -102,10 +104,11 @@ const TopTenClientProfit = () => {
     const [labels, setLabels] = useState([])
     const [value, setValue] = useState([])
     const [loading, setLoading] = useState(false)
+    const { tahun } = useContext(tahunGraphContext)
 
     useEffect(() => {
         setLoading(true)
-        axios.get(baseUrl + "/summary/topTenClientProfit")
+        axios.get(baseUrl + "/summary/topTenClientProfit?tahun=" + tahun)
             .then((res) => {
                 let label_tmp = []
                 let value_tmp = []
@@ -120,7 +123,7 @@ const TopTenClientProfit = () => {
                 setLoading(false)
                 console.log(err.response)
             })
-    }, [])
+    }, [tahun])
 
 
 
@@ -176,10 +179,11 @@ const Profit = () => {
     const [labels, setLabels] = useState([])
     const [value, setValue] = useState([])
     const [loading, setLoading] = useState(false)
+    const { tahun } = useContext(tahunGraphContext)
 
     useEffect(() => {
         setLoading(true)
-        axios.get(baseUrl + "/summary/profit")
+        axios.get(baseUrl + "/summary/profit?tahun=" + tahun)
             .then((res) => {
                 let label_tmp = []
                 let value_tmp = []
@@ -194,7 +198,7 @@ const Profit = () => {
                 setLoading(false)
                 console.log(err.response)
             })
-    }, [])
+    }, [tahun])
 
 
 
@@ -248,10 +252,11 @@ const Volume = () => {
     const [labels, setLabels] = useState([])
     const [value, setValue] = useState([])
     const [loading, setLoading] = useState(false)
+    const { tahun } = useContext(tahunGraphContext)
 
     useEffect(() => {
         setLoading(true)
-        axios.get(baseUrl + "/summary/volume")
+        axios.get(baseUrl + "/summary/volume?tahun=" + tahun)
             .then((res) => {
                 let label_tmp = []
                 let value_tmp = []
@@ -266,7 +271,7 @@ const Volume = () => {
                 setLoading(false)
                 console.log(err.response)
             })
-    }, [])
+    }, [tahun])
 
 
 
@@ -316,7 +321,6 @@ const Volume = () => {
 }
 
 const Summary = () => {
-
 
     return (
         <div>

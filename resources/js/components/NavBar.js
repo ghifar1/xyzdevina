@@ -1,13 +1,15 @@
-import { AppShell, Navbar, Header, Button, Group } from '@mantine/core';
+import { AppShell, Navbar, Header, Button, Group, Image } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
+import logo from "../images/logo.png"
 
 const NavBar = (props) => {
     const navigate = useNavigate();
     return (
         <AppShell
             padding="md"
-            header={<Header height={60} p="xs">
+            header={<Header height={70} p="xs">
                 <Group position='center'>
+                    <Image src={logo} width={30} />
                     <Button variant='subtle' onClick={() => navigate('/a/dashboard')}>
                         Dashboard
                     </Button>

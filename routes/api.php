@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\BranchController;
+use App\Http\Controllers\ChannelController;
+use App\Http\Controllers\DealerController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SegmentController;
 use App\Http\Controllers\SummaryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +34,11 @@ Route::get('/summary/volume', [SummaryController::class, 'volume']);
 Route::get('/summary/profit', [SummaryController::class, 'profit']);
 Route::get('/summary/topTenClientProfit', [SummaryController::class, 'topTenClientProfit']);
 Route::get('/summary/topTenClientVolume', [SummaryController::class, 'topTenClientVolume']);
-Route::get('/area/segment', [AreaController::class, 'segment']);
-Route::get('/area/segmentGrowth', [AreaController::class, 'segmentGrowth']);
+Route::get('/segment/segment', [SegmentController::class, 'segment']);
+Route::get('/segment/segmentGrowth', [SegmentController::class, 'segmentGrowth']);
+Route::get('/area/areaSnd', [AreaController::class, 'areaSnd']);
+Route::get('/dealer', [DealerController::class, 'dealer']);
+Route::get('/branch', [BranchController::class, 'branch']);
+Route::get('/channel/groupingProduct', [ChannelController::class, 'groupingProduct']);
+Route::get('/channel/eChannels', [ChannelController::class, 'eChannels']);
 

@@ -11,14 +11,19 @@ import ListUser from "./pages/SuperAdmin/ListUser";
 import Summary from "./components/dashboard/Summary";
 import GraphMenu from "./components/GraphMenu";
 import Area from "./components/dashboard/Area";
+import Segment from "./components/dashboard/Segment";
+import Dealer from "./components/dashboard/Dealer";
+import Branch from "./components/dashboard/Branch";
+import Channel from "./components/dashboard/Channel";
+import Customer from "./components/dashboard/Customer";
+import Sales from "./components/dashboard/Sales";
 
 const Authentication = (props) => {
-    const [cookies, setCookie, removeCookie] = useCookies(['devina']);
+    const token = localStorage.getItem("token")
     const navigate = useNavigate();
 
-    if (!cookies['devina']) {
-        // return <Navigate to={"/login"} />
-        return props.children
+    if (!token) {
+        return <Navigate to={"/login"} />
     } else {
         return props.children
     }
@@ -29,6 +34,12 @@ const GraphNavigation = () => {
         <Routes>
             <Route path="*" element={<Summary />} />
             <Route path="/area" element={<Area />} />
+            <Route path="/segment" element={<Segment />} />
+            <Route path="/dealer" element={<Dealer />} />
+            <Route path="/branch" element={<Branch />} />
+            <Route path="/channel" element={<Channel />} />
+            <Route path="/customer" element={<Customer />} />
+            <Route path="/sales" element={<Sales />} />
         </Routes>
     )
 }

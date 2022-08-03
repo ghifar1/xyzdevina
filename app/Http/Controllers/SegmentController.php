@@ -6,14 +6,15 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AreaController extends Controller
+class SegmentController extends Controller
 {
-    public function areaSnd(Request $request)
+    public function segment(Request $request)
     {
-        $data = DB::table('annualy_reports')->select('snd_head', 'snd_area', DB::raw('SUM(idr_profit_end) as profit'), DB::raw('SUM(usd_volume_end) as volume'))
+        $data = DB::table('annualy_reports')->select('segm as label', DB::raw('SUM(idr_profit_end) as y'), DB::raw('SUM(usd_volume_end) as x'))
             ->where('tahun', $request->tahun ?? Carbon::now()->year)
-            ->groupBy('snd_area', 'snd_head')
-            ->orderBy('snd_head')
+            ->groupBy('segm')
+            ->orderBy('x', 'desc')
+            ->orderBy('y', 'desc')
             ->get();
 
         return response()->json($data);
