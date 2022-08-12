@@ -1,9 +1,10 @@
-import { Center, Card, Stack, InputWrapper, Input, Button } from "@mantine/core"
+import { Center, Card, Stack, InputWrapper, Input, Button, Image, Group, Text } from "@mantine/core"
 import { showNotification } from "@mantine/notifications"
 import axios from "axios"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import baseUrl from "../constant/baseUrl"
+import logo from "../images/logo.png"
 
 const Login = () => {
     const [form, setForm] = useState({
@@ -40,6 +41,10 @@ const Login = () => {
                 }
             })}>
                 <Stack align="stretch">
+                    <Group position={"center"}>
+                        <Image src={logo} width={70} />
+                    </Group>
+                    <Text align="center" weight={"500"}>Dashboard Monitoring System</Text>
                     <InputWrapper
                         label="Email"
                         required

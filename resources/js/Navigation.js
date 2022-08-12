@@ -60,7 +60,7 @@ const Navigation = () => {
     return (
         <Routes>
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<NavBar><Welcome /></NavBar>} />
+            <Route path="/" element={<Authentication><NavBar><Welcome /></NavBar></Authentication>} />
             <Route path="/a/*" element={<Authentication><AuthNavigation /></Authentication>} />
         </Routes>
     )

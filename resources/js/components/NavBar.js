@@ -22,7 +22,7 @@ const NavBar = (props) => {
                     <Button variant='subtle' onClick={() => navigate('/a/list_user')}>
                         Management User
                     </Button>
-                    <Button variant='subtle' color={"red"} onClick={() => navigate('/login')}>
+                    <Button variant='subtle' color={"red"} onClick={() => {localStorage.removeItem("token");  navigate('/login')}}>
                         Logout
                     </Button>
                 </Group>
