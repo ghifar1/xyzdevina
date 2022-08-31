@@ -1,9 +1,60 @@
 import { ActionIcon, Button, Container, Group, Input, InputWrapper, Modal, Stack, Table, Text } from "@mantine/core"
-import { useState } from "react"
+import { showNotification } from "@mantine/notifications"
+import axios from "axios"
+import { useEffect, useState } from "react"
 import { Plus, UserPlus } from "tabler-icons-react"
+import baseUrl from "../../constant/baseUrl"
 
 const ListUser = () => {
     const [modalOpen, setModalOpen] = useState(false)
+    const [users, setUsers] = useState([])
+    const [user, setUser] = useState({
+        email: '',
+        name: '',
+        divisi: '',
+        password: '',
+        confirm_password: '',
+    })
+
+
+    useEffect(() => {
+
+    }, [user])
+
+    useEffect(() => {
+        axios.get(`${baseUrl}/profile/getall`)
+            .then((res) => {
+                console.log(res.data);
+                setUsers(res.data)
+            }).catch((err) => {
+                console.log(err);
+            })
+    }, [])
+
+    const onSubmit = () => {
+        axios.post(`${baseUrl}/profile/add`, user)
+            .then((res) => {
+                console.log(res.data);
+                showNotification({
+                    message: "success",
+                })
+                setModalOpen(false)
+                axios.get(`${baseUrl}/profile/getall`)
+                    .then((res) => {
+                        console.log(res.data);
+                        setUsers(res.data)
+                    }).catch((err) => {
+                        console.log(err);
+                    })
+
+            }).catch((err) => {
+                console.log(err);
+                showNotification({
+                    message: "failed",
+                    color: 'red',
+                })
+            })
+    }
 
     return (
         <Container>
@@ -17,21 +68,33 @@ const ListUser = () => {
                         label="Email"
                         required
                     >
-                        <Input type="email" />
+                        <Input type="email" value={user.email} onChange={(ev) => setUser({ ...user, email: ev.target.value })} />
                     </InputWrapper>
                     <InputWrapper
                         label="Nama"
                         required
                     >
-                        <Input />
+                        <Input value={user.name} onChange={(ev) => setUser({ ...user, name: ev.target.value })} />
                     </InputWrapper>
                     <InputWrapper
                         label="Divisi"
                         required
                     >
-                        <Input />
+                        <Input value={user.divisi} onChange={(ev) => setUser({ ...user, divisi: ev.target.value })} />
                     </InputWrapper>
-                    <Button>Save</Button>
+                    <InputWrapper
+                        label="Password"
+                        required
+                    >
+                        <Input type={'password'} value={user.password} onChange={(ev) => setUser({ ...user, password: ev.target.value })} />
+                    </InputWrapper>
+                    <InputWrapper
+                        label="Konfirmasi Password"
+                        required
+                    >
+                        <Input type={'password'} value={user.confirm_password} onChange={(ev) => setUser({ ...user, confirm_password: ev.target.value })} />
+                    </InputWrapper>
+                    <Button onClick={onSubmit}>Save</Button>
                 </Stack>
             </Modal>
             <Stack>
@@ -41,38 +104,37 @@ const ListUser = () => {
                         <UserPlus />
                     </ActionIcon>
                 </Group>
-                <UserTable />
+                <UserTable user={users} />
             </Stack>
         </Container>
     )
 }
 
-const UserTable = () => {
+const UserTable = ({ user }) => {
     return (
         <Table>
             <thead>
                 <tr>
-                    <th>Element position</th>
-                    <th>Element name</th>
-                    <th>Symbol</th>
-                    <th>Atomic mass</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Divisi</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        aaaaa
-                    </td>
-                    <td>
-                        bbb
-                    </td>
-                    <td>
-                        ccc
-                    </td>
-                    <td>
-                        eee
-                    </td>
-                </tr>
+                {user.map((data, idx) => (
+                    <tr key={idx}>
+                        <td>
+                            {data.name}
+                        </td>
+                        <td>
+                            {data.email}
+                        </td>
+                        <td>
+                            {data.divisi}
+                        </td>
+
+                    </tr>
+                ))}
             </tbody>
         </Table>
     )
