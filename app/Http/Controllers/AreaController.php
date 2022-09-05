@@ -8,12 +8,22 @@ use Illuminate\Support\Facades\DB;
 
 class AreaController extends Controller
 {
+    public function volume(Request $request)
+    {
+        $data = DB::table('annualy_reports')->select('snd_head', DB::raw('SUM(usd_volume_end) as volume'))
+            ->where('tahun', $request->tahun ?? Carbon::now()->year)
+            ->groupBy('snd_head')
+            ->orderBy('snd_head')
+            ->get();
+        return response()->json($data);
+    }
+
     public function areaSnd(Request $request)
     {
-        $data = DB::table('annualy_reports')->select('snd_head', 'snd_area', DB::raw('SUM(idr_profit_end) as profit'), DB::raw('SUM(usd_volume_end) as volume'))
+        $data = DB::table('annualy_reports')->select('snd_area', DB::raw('SUM(idr_profit_end) as profit'), DB::raw('SUM(usd_volume_end) as volume'))
             ->where('tahun', $request->tahun ?? Carbon::now()->year)
-            ->groupBy('snd_area', 'snd_head')
-            ->orderBy('snd_head')
+            ->groupBy('snd_area',)
+            ->orderBy('snd_area')
             ->get();
 
         return response()->json($data);
