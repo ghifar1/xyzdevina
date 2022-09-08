@@ -19578,9 +19578,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-chart_js__WEBPACK_IMPORTED_MODULE_3__.Chart.register(chart_js__WEBPACK_IMPORTED_MODULE_3__.LinearScale, chart_js__WEBPACK_IMPORTED_MODULE_3__.PointElement, chart_js__WEBPACK_IMPORTED_MODULE_3__.LineElement, chart_js__WEBPACK_IMPORTED_MODULE_3__.Tooltip, chart_js__WEBPACK_IMPORTED_MODULE_3__.Legend);
+chart_js__WEBPACK_IMPORTED_MODULE_3__.Chart.register(chart_js__WEBPACK_IMPORTED_MODULE_3__.LinearScale, chart_js__WEBPACK_IMPORTED_MODULE_3__.PointElement, chart_js__WEBPACK_IMPORTED_MODULE_3__.LineElement, chart_js__WEBPACK_IMPORTED_MODULE_3__.Tooltip, chart_js__WEBPACK_IMPORTED_MODULE_3__.Legend, chart_js__WEBPACK_IMPORTED_MODULE_3__.RadialLinearScale, chart_js__WEBPACK_IMPORTED_MODULE_3__.ArcElement);
 
-var AreaSnd = function AreaSnd() {
+var AreaSndProfitVolume = function AreaSndProfitVolume() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
       labels = _useState2[0],
@@ -19588,120 +19588,33 @@ var AreaSnd = function AreaSnd() {
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState4 = _slicedToArray(_useState3, 2),
-      valueProfit = _useState4[0],
-      setValueProfit = _useState4[1];
+      value = _useState4[0],
+      setValue = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState6 = _slicedToArray(_useState5, 2),
-      value = _useState6[0],
-      setValue = _useState6[1];
-
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-      _useState8 = _slicedToArray(_useState7, 2),
-      loading = _useState8[0],
-      setLoading = _useState8[1];
+      loading = _useState6[0],
+      setLoading = _useState6[1];
 
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_tahunGraphContext__WEBPACK_IMPORTED_MODULE_5__["default"]),
       tahun = _useContext.tahun;
 
-  function random_rgba() {
-    var o = Math.round,
-        r = Math.random,
-        s = 255;
-    return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 1 + ')';
-  }
-
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setLoading(true);
     axios__WEBPACK_IMPORTED_MODULE_1___default().get(_constant_baseUrl__WEBPACK_IMPORTED_MODULE_2__["default"] + "/area/areaSnd?tahun=" + tahun).then(function (res) {
-      var _res$data, _res$data2;
-
-      console.log(res.data);
-      var result = (_res$data = res.data) === null || _res$data === void 0 ? void 0 : _res$data.reduce(function (r, a) {
-        r[a.snd_head] = r[a.snd_head] || [];
-        r[a.snd_head].push(a.volume);
-        return r;
-      }, Object.create(null));
-      var resultProfit = (_res$data2 = res.data) === null || _res$data2 === void 0 ? void 0 : _res$data2.reduce(function (r, a) {
-        r[a.snd_head] = r[a.snd_head] || [];
-        r[a.snd_head].push(a.profit);
-        return r;
-      }, Object.create(null));
-      var tmp = [];
-      var tmp_profit = [];
-      var tmp_dataset = [];
-      var tmp_dataset_profit = [];
-      var maxlength = 0;
-      var maxlengthProfit = 0;
-      Object.keys(result).map(function (data) {
-        if (result[data].length > maxlength) maxlength = result[data].length;
-        tmp.push(data);
-        tmp_dataset.push({
-          label: "value",
-          data: result[data]
-        });
-      });
-      Object.keys(resultProfit).map(function (data) {
-        if (resultProfit[data].length > maxlengthProfit) maxlengthProfit = resultProfit[data].length;
-        tmp_profit.push(data);
-        tmp_dataset_profit.push({
-          label: "profit",
-          data: resultProfit[data]
-        });
-      });
-      setLabels(tmp); // fill empty array
-
-      Object.keys(tmp_dataset).map(function (key) {
-        for (var i = 0; i < maxlength; i++) {
-          if (!tmp_dataset[key]['data'][i]) {
-            tmp_dataset[key]['data'][i] = 0;
-          }
-        }
-      }); // fill empty array
-
-      Object.keys(tmp_dataset_profit).map(function (key) {
-        for (var i = 0; i < maxlengthProfit; i++) {
-          if (!tmp_dataset_profit[key]['data'][i]) {
-            tmp_dataset_profit[key]['data'][i] = 0;
-          }
-        }
-      });
-      var final_dataset = [];
-      var final_dataset_profit = []; //final dataset
-
-      for (var i = 0; i < maxlength; i++) {
-        var data_array = [];
-
-        for (var j = 0; j < Object.keys(tmp_dataset).length; j++) {
-          data_array.push(tmp_dataset[j].data[i]);
-        }
-
-        final_dataset.push({
-          label: 'dataset ' + (i + 1),
-          data: data_array,
-          backgroundColor: 'rgba(147,202,237)'
-        });
-      } //final dataset
-
-
-      for (var _i2 = 0; _i2 < maxlengthProfit; _i2++) {
-        var _data_array = [];
-
-        for (var _j = 0; _j < Object.keys(tmp_dataset_profit).length; _j++) {
-          _data_array.push(tmp_dataset_profit[_j].data[_i2]);
-        }
-
-        final_dataset_profit.push({
-          label: 'dataset ' + (_i2 + 1),
-          data: _data_array,
-          backgroundColor: 'rgba(147,202,237)'
-        });
-      }
-
-      setValue(final_dataset);
-      setValueProfit(final_dataset_profit);
-      console.log(final_dataset_profit);
       setLoading(false);
+      console.log(res.data);
+      var label_tmp = [];
+      var value_tmp = [];
+      res.data.forEach(function (data) {
+        label_tmp.push(data.snd_area);
+        value_tmp.push({
+          x: data.volume,
+          y: data.profit
+        });
+      });
+      setLabels(label_tmp.reverse());
+      setValue(value_tmp.reverse());
     })["catch"](function (err) {
       setLoading(false);
       console.log(err.response);
@@ -19709,11 +19622,14 @@ var AreaSnd = function AreaSnd() {
   }, [tahun]);
   var dataa = {
     labels: labels,
-    datasets: value
-  };
-  var dataaProfit = {
-    labels: labels,
-    datasets: valueProfit
+    datasets: [{
+      label: 'USD Volume End',
+      labels: labels,
+      data: value,
+      backgroundColor: 'rgba(255, 99, 132, 1)',
+      pointRadius: 6,
+      pointHoverRadius: 6
+    }]
   };
   var options = {
     responsive: true,
@@ -19723,11 +19639,20 @@ var AreaSnd = function AreaSnd() {
       },
       title: {
         display: true,
-        text: 'Snd Head/Snd Area'
+        text: 'Area/SND'
+      },
+      tooltip: {
+        callbacks: {
+          label: function label(ctx) {
+            var label = ctx.dataset.labels[ctx.dataIndex];
+            label += " (" + ctx.parsed.x + ", " + ctx.parsed.y + ")";
+            return label;
+          }
+        }
       }
     },
     scales: {
-      y: {
+      x: {
         title: {
           display: true,
           text: 'Transaction Volume (USD)'
@@ -19738,21 +19663,7 @@ var AreaSnd = function AreaSnd() {
             return (0,_constant_shortHand__WEBPACK_IMPORTED_MODULE_4__["default"])(value);
           }
         }
-      }
-    }
-  };
-  var optionsProfit = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top'
       },
-      title: {
-        display: true,
-        text: 'Snd Head/Snd Area'
-      }
-    },
-    scales: {
       y: {
         title: {
           display: true,
@@ -19775,23 +19686,240 @@ var AreaSnd = function AreaSnd() {
     },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_7__.LoadingOverlay, {
       visible: loading
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_chartjs_2__WEBPACK_IMPORTED_MODULE_8__.Bar, {
-      options: options,
-      data: dataa
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_chartjs_2__WEBPACK_IMPORTED_MODULE_8__.Bar, {
-      options: optionsProfit,
-      data: dataaProfit
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_chartjs_2__WEBPACK_IMPORTED_MODULE_8__.Scatter, {
+      data: dataa,
+      options: options
+    })]
+  });
+};
+
+var AreaSnd = function AreaSnd() {
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState8 = _slicedToArray(_useState7, 2),
+      labels = _useState8[0],
+      setLabels = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState10 = _slicedToArray(_useState9, 2),
+      bgColor = _useState10[0],
+      setBgColor = _useState10[1];
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState12 = _slicedToArray(_useState11, 2),
+      value = _useState12[0],
+      setValue = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      loading = _useState14[0],
+      setLoading = _useState14[1];
+
+  var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_tahunGraphContext__WEBPACK_IMPORTED_MODULE_5__["default"]),
+      tahun = _useContext2.tahun;
+
+  function random_rgba() {
+    var o = Math.round,
+        r = Math.random,
+        s = 255;
+    return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 1 + ')';
+  }
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setLoading(true);
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get(_constant_baseUrl__WEBPACK_IMPORTED_MODULE_2__["default"] + "/area/bubble?tahun=" + tahun).then(function (res) {
+      setLoading(false);
+      var labels_temp = [];
+      var value_temp = [];
+      var bgColor_temp = [];
+      res.data.map(function (data) {
+        labels_temp.push(data.snd_head);
+        value_temp.push(data.volume);
+        bgColor_temp.push(random_rgba());
+      });
+      setLabels(labels_temp);
+      setValue(value_temp);
+      setBgColor(bgColor_temp);
+    }); // axios.get(baseUrl + "/area/areaSnd?tahun=" + tahun)
+    //     .then((res) => {
+    //         console.log(res.data)
+    //         let result = res.data?.reduce(function (r, a) {
+    //             r[a.snd_head] = r[a.snd_head] || [];
+    //             r[a.snd_head].push(a.volume);
+    //             return r;
+    //         }, Object.create(null));
+    //         let resultProfit = res.data?.reduce(function (r, a) {
+    //             r[a.snd_head] = r[a.snd_head] || [];
+    //             r[a.snd_head].push(a.profit);
+    //             return r;
+    //         }, Object.create(null));
+    //         let tmp = []
+    //         let tmp_profit = []
+    //         let tmp_dataset = []
+    //         let tmp_dataset_profit = []
+    //         let maxlength = 0
+    //         let maxlengthProfit = 0
+    //         Object.keys(result).map((data) => {
+    //             if (result[data].length > maxlength) maxlength = result[data].length
+    //             tmp.push(data)
+    //             tmp_dataset.push({
+    //                 label: "value",
+    //                 data: result[data]
+    //             })
+    //         })
+    //         Object.keys(resultProfit).map((data) => {
+    //             if (resultProfit[data].length > maxlengthProfit) maxlengthProfit = resultProfit[data].length
+    //             tmp_profit.push(data)
+    //             tmp_dataset_profit.push({
+    //                 label: "profit",
+    //                 data: resultProfit[data]
+    //             })
+    //         })
+    //         setLabels(tmp)
+    //         // fill empty array
+    //         Object.keys(tmp_dataset).map((key) => {
+    //             for (let i = 0; i < maxlength; i++) {
+    //                 if (!tmp_dataset[key]['data'][i]) {
+    //                     tmp_dataset[key]['data'][i] = 0
+    //                 }
+    //             }
+    //         })
+    //         // fill empty array
+    //         Object.keys(tmp_dataset_profit).map((key) => {
+    //             for (let i = 0; i < maxlengthProfit; i++) {
+    //                 if (!tmp_dataset_profit[key]['data'][i]) {
+    //                     tmp_dataset_profit[key]['data'][i] = 0
+    //                 }
+    //             }
+    //         })
+    //         let final_dataset = []
+    //         let final_dataset_profit = []
+    //         //final dataset
+    //         for (let i = 0; i < maxlength; i++) {
+    //             let data_array = []
+    //             for (let j = 0; j < Object.keys(tmp_dataset).length; j++) {
+    //                 data_array.push(tmp_dataset[j].data[i])
+    //             }
+    //             final_dataset.push({
+    //                 label: 'dataset ' + (i + 1),
+    //                 data: data_array,
+    //                 backgroundColor: 'rgba(147,202,237)'
+    //             })
+    //         }
+    //         //final dataset
+    //         for (let i = 0; i < maxlengthProfit; i++) {
+    //             let data_array = []
+    //             for (let j = 0; j < Object.keys(tmp_dataset_profit).length; j++) {
+    //                 data_array.push(tmp_dataset_profit[j].data[i])
+    //             }
+    //             final_dataset_profit.push({
+    //                 label: 'dataset ' + (i + 1),
+    //                 data: data_array,
+    //                 backgroundColor: 'rgba(147,202,237)'
+    //             })
+    //         }
+    //         setValue(final_dataset)
+    //         setValueProfit(final_dataset_profit)
+    //         console.log(final_dataset_profit)
+    //         setLoading(false)
+    //     }).catch((err) => {
+    //         setLoading(false)
+    //         console.log(err.response)
+    //     })
+  }, [tahun]); // const dataa = {
+  //     labels: labels,
+  //     datasets: value
+  // }
+
+  var datavolum = {
+    labels: labels,
+    datasets: [{
+      label: '# of Votes',
+      data: value,
+      backgroundColor: bgColor,
+      borderWidth: 1
+    }]
+  }; // const dataaProfit = {
+  //     labels: labels,
+  //     datasets: valueProfit
+  // }
+
+  var options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top'
+      },
+      title: {
+        display: true,
+        text: 'Area/SND volume'
+      }
+    } // scales: {
+    //     y: {
+    //         title: {
+    //             display: true,
+    //             text: 'Transaction Volume (USD)'
+    //         },
+    //         ticks: {
+    //             // Include a dollar sign in the ticks
+    //             callback: function (value, index, values) {
+    //                 return abbreviateNumber(value)
+    //             }
+    //         }
+    //     }
+    // }
+
+  }; // const optionsProfit = {
+  //     responsive: true,
+  //     plugins: {
+  //         legend: {
+  //             position: 'top',
+  //         },
+  //         title: {
+  //             display: true,
+  //             text: 'Snd Head/Snd Area',
+  //         },
+  //     },
+  //     scales: {
+  //         y: {
+  //             title: {
+  //                 display: true,
+  //                 text: 'Profit (IDR)'
+  //             },
+  //             ticks: {
+  //                 // Include a dollar sign in the ticks
+  //                 callback: function (value, index, values) {
+  //                     return abbreviateNumber(value)
+  //                 }
+  //             }
+  //         }
+  //     }
+  // };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    style: {
+      height: '500px',
+      width: '100%',
+      position: 'relative'
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_7__.LoadingOverlay, {
+      visible: loading
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_chartjs_2__WEBPACK_IMPORTED_MODULE_8__.PolarArea, {
+      data: datavolum,
+      options: options
     })]
   });
 };
 
 var Area = function Area() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_9__.Grid, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_9__.Grid.Col, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_mantine_core__WEBPACK_IMPORTED_MODULE_9__.Grid, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_9__.Grid.Col, {
         span: 6,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(AreaSnd, {})
-      })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_9__.Grid.Col, {
+        span: 6,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(AreaSndProfitVolume, {})
+      })]
     })
   });
 };
@@ -21272,8 +21400,7 @@ var Sales = function Sales() {
         span: 6,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Profit, {})
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_11__.Grid.Col, {
-        span: 12,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(BranchScatter, {})
+        span: 12
       })]
     })
   });
@@ -22037,25 +22164,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 function abbreviateNumber(value) {
-  var newValue = value;
-
-  if (value >= 1000) {
-    var suffixes = ["", "k", "m", "b", "t"];
-    var suffixNum = Math.floor(("" + value).length / 3);
-    var shortValue = '';
-
-    for (var precision = 2; precision >= 1; precision--) {
-      shortValue = parseFloat((suffixNum != 0 ? value / Math.pow(1000, suffixNum) : value).toPrecision(precision));
-      var dotLessShortValue = (shortValue + '').replace(/[^a-zA-Z 0-9]+/g, '');
-
-      if (dotLessShortValue.length <= 2) {
-        break;
-      }
-    }
-
-    if (shortValue % 1 != 0) shortValue = shortValue.toFixed(1);
-    newValue = shortValue + suffixes[suffixNum];
-  }
+  var newValue = Intl.NumberFormat('en-US', {
+    notation: "compact",
+    maximumFractionDigits: 1
+  }).format(value); // if (value >= 1000) {
+  //     var suffixes = ["", "k", "m", "b","t"];
+  //     var suffixNum = Math.floor( (""+value).length/3 );
+  //     var shortValue = '';
+  //     for (var precision = 2; precision >= 1; precision--) {
+  //         shortValue = parseFloat( (suffixNum != 0 ? (value / Math.pow(1000,suffixNum) ) : value).toPrecision(precision));
+  //         var dotLessShortValue = (shortValue + '').replace(/[^a-zA-Z 0-9]+/g,'');
+  //         if (dotLessShortValue.length <= 2) { break; }
+  //     }
+  //     if (shortValue % 1 != 0)  shortValue = shortValue.toFixed(1);
+  //     newValue = shortValue+suffixes[suffixNum];
+  // }
 
   return newValue;
 }

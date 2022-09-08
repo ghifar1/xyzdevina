@@ -308,7 +308,7 @@ const Sales = () => {
                     <Profit />
                 </Grid.Col>
                 <Grid.Col span={12}>
-                    <BranchScatter />
+                    {/* <BranchScatter /> */}
                 </Grid.Col>
             </Grid>
         </div>

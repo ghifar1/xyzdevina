@@ -42,6 +42,7 @@ Route::get('/summary/topTenClientVolume', [SummaryController::class, 'topTenClie
 Route::get('/segment/segment', [SegmentController::class, 'segment']);
 Route::get('/segment/segmentGrowth', [SegmentController::class, 'segmentGrowth']);
 Route::get('/area/areaSnd', [AreaController::class, 'areaSnd']);
+Route::get('/area/bubble', [AreaController::class, 'volume']);
 Route::get('/dealer', [DealerController::class, 'dealer']);
 Route::get('/branch', [BranchController::class, 'branch']);
 Route::get('/channel/groupingProduct', [ChannelController::class, 'groupingProduct']);
